@@ -45,6 +45,12 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+# /////
+
+# @app.route('/people', methods=['GET'])
+
+
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
