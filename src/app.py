@@ -73,8 +73,8 @@ def get_all_people():
 
 
 @app.route('/people/<int:id>', methods=['GET'])
-def get_one_planet(id):
-    searched_people = People.query.get()
+def get_one_people(id):
+    searched_people = People.query.get(id)
     if searched_people != None:
             return jsonify(searched_people.serialize()), 200
     return jsonify({"error": "Planet no encontrado"}), 404
@@ -89,14 +89,14 @@ def get_all_fav():
 
 @app.route('/users/favorite/<int:user_id>', methods=['GET'])
 def get_user_fav(user_id):
-    searched_fav = Favorite.query.get()
+    searched_fav = Favorite.query.get(user_id)
     if searched_fav != None:
             return jsonify(searched_fav.serialize()), 200
     return jsonify({"error": "Favorites no encontrado"}), 404
 
 
 
- @app.route('/favorite/planet/<int:planet_id>', methods=['POST'])
+@app.route('/favorite/planet/<int:planet_id>', methods=['POST'])
 def add_favorite_planet():
     try:
         body = request.json
