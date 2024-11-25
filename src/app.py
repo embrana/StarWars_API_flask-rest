@@ -80,9 +80,9 @@ def get_one_people(id):
     return jsonify({"error": "Planet no encontrado"}), 404
 
 
-@app.route('/users/favorite', methods=['GET'])
+@app.route('/favorite', methods=['GET'])
 def get_all_fav():
-    fav_list =Favorite.query.order_by(Favorite.user.asc()).all()
+    fav_list =Favorite.query.order_by(Favorite.user_id.asc()).all()
     serialized_fav = [item.serialize()for item in fav_list]
     return jsonify(serialized_fav), 200
 
@@ -97,11 +97,10 @@ def get_user_fav(user_id):
 
 
 @app.route('/favorite/planet/<int:planet_id>', methods=['POST'])
-def add_favorite_planet():
+def add_favorite_planet(planet_id):
     try:
         body = request.json
         user_id = body.get('user_id')
-        planet_id = body.get('planet_id')
 
         if not user_id or not planet_id:
             return jsonify({"error": "Both 'user_id' and 'planet_id' are required."}), 400
@@ -133,11 +132,10 @@ def add_favorite_planet():
 
 
 @app.route('/favorite/people/<int:people_id>', methods=['POST'])
-def add_favorite_people():
+def add_favorite_people(people_id):
     try:
         body = request.json
         user_id = body.get('user_id')
-        people_id = body.get('people_id')
 
         if not user_id or not people_id:
             return jsonify({"error": "Both 'user_id' and 'people_id' are required."}), 400
